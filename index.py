@@ -20,6 +20,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    ## Creating surface with the labyrinth, mouse and cheese ##
     labyrinth_surfaces = create_labyrinth(mouse, cheese)
     screen.fill("#181818")
     screen_x_position = 50
@@ -33,6 +34,7 @@ while running:
         screen_y_position += 50
 
     pygame.display.flip()
+
     clock.tick(60)
 
 pygame.quit()
