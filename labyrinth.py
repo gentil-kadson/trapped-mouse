@@ -18,9 +18,9 @@ def create_labyrinth(mouse, cheese):
                     labyrinth_surface.fill((0, 0, 0))
                     surfaces_aux.append(labyrinth_surface)
                 elif value == "m":
-                    surfaces_aux.append(mouse.mouse_surface)
+                    surfaces_aux.append(mouse.surface)
                 elif value == "c":
-                    surfaces_aux.append(cheese.cheese_surface)
+                    surfaces_aux.append(cheese.surface)
 
             labyrinth_surfaces.append(surfaces_aux)
 
