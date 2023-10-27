@@ -1,5 +1,6 @@
 import pygame
 from mouse import mouse
+from labyrinth import labyrinth_surfaces
 
 pygame.init()
 
@@ -17,7 +18,15 @@ while running:
             running = False
 
     screen.fill("#181818")
-    screen.blit(mouse, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+    screen_x_position = 50
+    screen_y_position = 50
+    for row in labyrinth_surfaces:
+        for column in row:
+            screen.blit(column, (screen_x_position, screen_y_position))
+            screen_x_position += 50
+
+        screen_x_position = 50
+        screen_y_position += 50
 
     pygame.display.flip()
     clock.tick(60)
