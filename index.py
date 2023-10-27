@@ -1,5 +1,4 @@
 import pygame
-from mouse import mouse
 from labyrinth import labyrinth_surfaces
 
 pygame.init()
