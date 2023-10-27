@@ -1,19 +1,27 @@
-from pygame import Surface
+import pygame
 
-labyrinth_surfaces = []
 
-with open('test_text.txt') as file:
-    lines = file.readlines()
+def create_labyrinth(mouse, cheese):
+    labyrinth_surfaces = []
 
-    for line in lines:
-        surfaces_aux = []
-        for number in line:
-            labyrinth_surface = Surface((50, 50))
-            if number == "0":
-                labyrinth_surface.fill((255, 255, 255))
-                surfaces_aux.append(labyrinth_surface)
-            elif number == "1":
-                labyrinth_surface.fill((0, 0, 0))
-                surfaces_aux.append(labyrinth_surface)
+    with open('test_text.txt') as file:
+        lines = file.readlines()
 
-        labyrinth_surfaces.append(surfaces_aux)
+        for line in lines:
+            surfaces_aux = []
+            for value in line:
+                labyrinth_surface = pygame.Surface((50, 50))
+                if value == "0":
+                    labyrinth_surface.fill((255, 255, 255))
+                    surfaces_aux.append(labyrinth_surface)
+                elif value == "1":
+                    labyrinth_surface.fill((0, 0, 0))
+                    surfaces_aux.append(labyrinth_surface)
+                elif value == "m":
+                    surfaces_aux.append(mouse.mouse_surface)
+                elif value == "c":
+                    surfaces_aux.append(cheese.cheese_surface)
+
+            labyrinth_surfaces.append(surfaces_aux)
+
+    return labyrinth_surfaces

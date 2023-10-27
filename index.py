@@ -1,5 +1,6 @@
 import pygame
-from labyrinth import labyrinth_surfaces
+from classes import Mouse, Cheese
+from labyrinth import create_labyrinth
 
 pygame.init()
 
@@ -7,6 +8,9 @@ SCREEN_WIDTH = 1366
 SCREEN_HEIGHT = 768
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+mouse = Mouse()
+cheese = Cheese()
+
 
 clock = pygame.time.Clock()
 running = True
@@ -16,6 +20,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    labyrinth_surfaces = create_labyrinth(mouse, cheese)
     screen.fill("#181818")
     screen_x_position = 50
     screen_y_position = 50
