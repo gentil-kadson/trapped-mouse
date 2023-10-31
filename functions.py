@@ -46,5 +46,22 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface]]:
     return maze_surfaces
 
 
+def find_mouse(maze_surfaces: list[list[pygame.Surface]]) -> Mouse:
+    for row in maze_surfaces:
+        for column in row:
+            if isinstance(column, Mouse):
+                return column
+
+
+def find_cheese(maze_surfaces: list[list[pygame.Surface]]) -> Cheese:
+    for row in maze_surfaces:
+        for column in row:
+            if isinstance(column, Cheese):
+                return column
+
+
 def solve_maze(maze_surfaces: list[list[pygame.Surface]]) -> bool:
-    pass
+    mouse_rect = find_mouse(maze_surfaces).rectangle
+    cheese_rect = find_cheese(maze_surfaces).rectangle
+
+    return True
