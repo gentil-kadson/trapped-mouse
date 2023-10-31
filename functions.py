@@ -46,22 +46,36 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface]]:
     return maze_surfaces
 
 
-def find_mouse(maze_surfaces: list[list[pygame.Surface]]) -> Mouse:
+def find_mouse(maze_surfaces: list[list[pygame.Surface]]) -> pygame.Surface:
     for row in maze_surfaces:
         for column in row:
             if isinstance(column, Mouse):
-                return column
+                return column.surface
 
 
-def find_cheese(maze_surfaces: list[list[pygame.Surface]]) -> Cheese:
+def find_cheese(maze_surfaces: list[list[pygame.Surface]]) -> pygame.Surface:
     for row in maze_surfaces:
         for column in row:
             if isinstance(column, Cheese):
-                return column
+                return column.surface
 
 
-def solve_maze(maze_surfaces: list[list[pygame.Surface]]) -> bool:
-    mouse_rect = find_mouse(maze_surfaces).rectangle
-    cheese_rect = find_cheese(maze_surfaces).rectangle
+def is_black(screen: pygame.Surface, cell: pygame.Surface) -> bool:
+    black = (0, 0, 0)
+
+    if (screen.get_at((cell.get_width(), cell.get_height())) != black):
+        return False
 
     return True
+
+
+def is_cell_valid(screen: pygame.Surface, mouse: pygame.Surface, maze_surfaces: list[list[pygame.Surface]]) -> str:
+    black = (0, 0, 0)
+
+    for row in maze_surfaces:
+        for column in row:
+            column_width = column.get_width()
+            column_height = column.get_height()
+
+            if (column_width == mouse.get_width() + 50 and is_black(screen, column) is False):
+                return "right"

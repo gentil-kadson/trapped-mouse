@@ -1,6 +1,6 @@
 import pygame
 from classes import Mouse, Cheese
-from functions import create_maze
+from functions import create_maze, find_cheese, find_mouse
 
 pygame.init()
 
@@ -20,18 +20,28 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    ## Creating surface with the labyrinth, mouse, and cheese ##
-    labyrinth_surfaces = create_maze(mouse, cheese)
+    ## Creating surface with the maze's cells, wall, mouse, and cheese ##
+    maze_surfaces = create_maze(mouse, cheese)
+
     screen.fill("#181818")
     screen_x_position: float = 50
     screen_y_position: float = 50
-    for row in labyrinth_surfaces:
+
+    for row in maze_surfaces:
         for column in row:
             screen.blit(column, (screen_x_position, screen_y_position))
             screen_x_position += 50
 
         screen_x_position = 50
         screen_y_position += 50
+
+    ## Solving the maze ##
+    maze_mouse = find_mouse(maze_surfaces)
+    maze_cheese = find_cheese(maze_surfaces)
+    stack = []
+
+    while maze_mouse.get_width() != maze_cheese.get_width() and maze_mouse.get_height() != maze_cheese.get_height():
+        pass
 
     pygame.display.flip()
 
