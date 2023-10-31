@@ -1,6 +1,6 @@
 import pygame
 from classes import Mouse, Cheese
-from fuctions import create_maze
+from functions import create_maze
 
 pygame.init()
 
