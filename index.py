@@ -1,6 +1,6 @@
 import pygame
 from classes import Mouse, Cheese
-from labyrinth import create_labyrinth
+from maze import create_maze
 
 pygame.init()
 
@@ -20,8 +20,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    ## Creating surface with the labyrinth, mouse and cheese ##
-    labyrinth_surfaces = create_labyrinth(mouse, cheese)
+    ## Creating surface with the labyrinth, mouse, and cheese ##
+    labyrinth_surfaces = create_maze(mouse, cheese)
     screen.fill("#181818")
     screen_x_position = 50
     screen_y_position = 50
