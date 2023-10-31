@@ -46,10 +46,5 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface]]:
     return maze_surfaces
 
 
-def solve_maze(maze_surfaces):
-    rat = find_rat(maze_surfaces)
-    cheese = find_cheese(maze_surfaces)
-
-    for row in maze_surfaces:
-        for column in row:
-            pass
+def solve_maze(maze_surfaces: list[list[pygame.Surface]]) -> bool:
+    pass
