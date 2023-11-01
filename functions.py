@@ -2,8 +2,8 @@ import pygame
 from classes import Cheese, Mouse
 
 
-def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface | Mouse | Cheese]]:
-    maze_surfaces: list[list[pygame.Surface | Mouse | Cheese]] = []
+def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface]]:
+    maze_surfaces: list[list[pygame.Surface]] = []
     with open('test_text.txt') as file:
         lines = file.readlines()
         vertical_border_surfaces: list[pygame.Surface] = []
@@ -30,10 +30,10 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface | Mous
                     surfaces_aux.append(maze_surface)
 
                 elif value == "m":
-                    surfaces_aux.append(mouse)
+                    surfaces_aux.append(mouse.surface)
 
                 elif value == "c":
-                    surfaces_aux.append(cheese)
+                    surfaces_aux.append(cheese.surface)
 
             right_border_surface = pygame.Surface((50, 50))
             right_border_surface.fill((10, 10, 10))
@@ -46,20 +46,6 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface | Mous
     return maze_surfaces
 
 
-def find_mouse(maze_surfaces: list[list[pygame.Surface]]) -> pygame.Surface:
-    for row in maze_surfaces:
-        for column in row:
-            if isinstance(column, Mouse):
-                return column.surface
-
-
-def find_cheese(maze_surfaces: list[list[pygame.Surface]]) -> pygame.Surface:
-    for row in maze_surfaces:
-        for column in row:
-            if isinstance(column, Cheese):
-                return column.surface
-
-
 def is_black(screen: pygame.Surface, cell: pygame.Surface) -> bool:
     black = (0, 0, 0)
 
@@ -67,15 +53,3 @@ def is_black(screen: pygame.Surface, cell: pygame.Surface) -> bool:
         return False
 
     return True
-
-
-def is_cell_valid(screen: pygame.Surface, mouse: pygame.Surface, maze_surfaces: list[list[pygame.Surface]]) -> str:
-    black = (0, 0, 0)
-
-    for row in maze_surfaces:
-        for column in row:
-            column_width = column.get_width()
-            column_height = column.get_height()
-
-            if (column_width == mouse.get_width() + 50 and is_black(screen, column) is False):
-                return "right"

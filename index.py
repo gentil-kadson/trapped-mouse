@@ -1,6 +1,6 @@
 import pygame
 from classes import Mouse, Cheese
-from functions import create_maze, find_cheese, find_mouse
+from functions import create_maze
 
 pygame.init()
 
@@ -17,8 +17,6 @@ running: bool = True
 
 ## initialize variables to both create and solve the maze ##
 maze_surfaces = create_maze(mouse, cheese)
-maze_mouse = find_mouse(maze_surfaces)
-maze_cheese = find_cheese(maze_surfaces)
 stack: list[pygame.Surface] = []
 
 while running:
@@ -33,19 +31,14 @@ while running:
 
     for row in maze_surfaces:
         for column in row:
-            if isinstance(column, Mouse) or isinstance(column, Cheese):
-                screen.blit(column.surface,
-                            (screen_x_position, screen_y_position))
-                screen_x_position += 50
-            else:
-                screen.blit(column, (screen_x_position, screen_y_position))
-                screen_x_position += 50
+            screen.blit(column, (screen_x_position, screen_y_position))
+            screen_x_position += 50
 
         screen_x_position = 50
         screen_y_position += 50
 
     pygame.display.flip()
 
-    clock.tick(60)
+    clock.tick(5)
 
 pygame.quit()
