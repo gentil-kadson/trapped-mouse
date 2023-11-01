@@ -18,15 +18,15 @@ stack: list[Cell | Mouse | Cheese] = []
 
 ## Inserting cells on pygame's main surface object ##
 screen.fill("#181818")
-screen_x_position: float = 50
-screen_y_position: float = 50
+screen_x_position: float = 0
+screen_y_position: float = 0
 
 for row in maze_cells:
     for cell in row:
         screen.blit(cell.surface, (screen_x_position, screen_y_position))
         screen_x_position += 50
 
-    screen_x_position = 50
+    screen_x_position = 0
     screen_y_position += 50
 
 mouse = get_mouse(maze_cells)
