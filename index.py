@@ -4,45 +4,41 @@ from functions import create_maze, get_cheese, get_mouse
 
 pygame.init()
 
+## initializing variables ##
 SCREEN_WIDTH = 1366
 SCREEN_HEIGHT = 768
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-mouse: Mouse = Mouse()
-cheese: Cheese = Cheese()
-
-
 clock = pygame.time.Clock()
 running: bool = True
 
-## initializing variables ##
+## Creating maze cells (includes mouse and cheese starting cells) ##
 maze_cells = create_maze()
 stack: list[Cell | Mouse | Cheese] = []
 
+## Inserting cells on pygame's main surface object ##
+screen.fill("#181818")
+screen_x_position: float = 50
+screen_y_position: float = 50
+
+for row in maze_cells:
+    for cell in row:
+        screen.blit(cell.surface, (screen_x_position, screen_y_position))
+        screen_x_position += 50
+
+    screen_x_position = 50
+    screen_y_position += 50
+
+mouse = get_mouse(maze_cells)
+cheese = get_cheese(maze_cells)
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    ## Creating surface with the maze's cells, wall, mouse, and cheese ##
-    screen.fill("#181818")
-    screen_x_position: float = 50
-    screen_y_position: float = 50
-
-    for row in maze_cells:
-        for cell in row:
-            screen.blit(cell.surface, (screen_x_position, screen_y_position))
-            screen_x_position += 50
-
-        screen_x_position = 50
-        screen_y_position += 50
-
     screen_x_position = mouse.rectangle.x
     screen_y_position = mouse.rectangle.y
-
-    mouse = get_mouse(maze_cells)
-    cheese = get_cheese(maze_cells)
 
     pygame.display.flip()
 
