@@ -13,6 +13,8 @@ class Mouse(pygame.sprite.Sprite):
         super(Mouse, self).__init__()
         self.surface = pygame.image.load("icons/jerry.png").convert()
         self.rectangle = self.surface.get_rect()
+        self.width = self.rectangle.width
+        self.height = self.rectangle.height
 
 
 class Cheese(pygame.sprite.Sprite):
@@ -20,3 +22,5 @@ class Cheese(pygame.sprite.Sprite):
         super(Cheese, self).__init__()
         self.surface = pygame.image.load("icons/cheese.png").convert()
         self.rectangle = self.surface.get_rect()
+        self.width = self.rectangle.width
+        self.height = self.rectangle.height

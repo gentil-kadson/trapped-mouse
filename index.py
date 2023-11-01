@@ -15,9 +15,10 @@ cheese: Cheese = Cheese()
 clock = pygame.time.Clock()
 running: bool = True
 
-## initialize variables to both create and solve the maze ##
+## initializing variables ##
 maze_surfaces = create_maze(mouse, cheese)
-stack: list[pygame.Surface] = []
+stack: list[Cell | Mouse | Cheese] = []
+
 
 while running:
     for event in pygame.event.get():
