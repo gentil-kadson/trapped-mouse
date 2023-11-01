@@ -1,12 +1,11 @@
 import pygame
 
 
-class Cell(pygame.surface.Surface):
-    def __init__(self, color: str):
-        self.fill(color)
-        self.rectangle = self.get_rect()
-        self.rectangle.width = 50
-        self.rectangle.height = 50
+class Cell():
+    def __init__(self, color):
+        self.surface = pygame.Surface((50, 50))
+        self.surface.fill(color)
+        self.rectangle = self.surface.get_rect()
 
 
 class Mouse(pygame.sprite.Sprite):

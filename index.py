@@ -1,5 +1,5 @@
 import pygame
-from classes import Mouse, Cheese
+from classes import Mouse, Cheese, Cell
 from functions import create_maze
 
 pygame.init()
@@ -31,7 +31,7 @@ while running:
 
     for row in maze_surfaces:
         for column in row:
-            screen.blit(column, (screen_x_position, screen_y_position))
+            screen.blit(column.surface, (screen_x_position, screen_y_position))
             screen_x_position += 50
 
         screen_x_position = 50
