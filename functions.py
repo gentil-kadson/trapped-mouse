@@ -2,8 +2,8 @@ import pygame
 from classes import Cheese, Mouse
 
 
-def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface]]:
-    maze_surfaces: list[list[pygame.Surface]] = []
+def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface | Mouse | Cheese]]:
+    maze_surfaces: list[list[pygame.Surface | Mouse | Cheese]] = []
     with open('test_text.txt') as file:
         lines = file.readlines()
         vertical_border_surfaces: list[pygame.Surface] = []
@@ -30,10 +30,10 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface]]:
                     surfaces_aux.append(maze_surface)
 
                 elif value == "m":
-                    surfaces_aux.append(mouse.surface)
+                    surfaces_aux.append(mouse)
 
                 elif value == "c":
-                    surfaces_aux.append(cheese.surface)
+                    surfaces_aux.append(cheese)
 
             right_border_surface = pygame.Surface((50, 50))
             right_border_surface.fill((10, 10, 10))
