@@ -1,49 +1,47 @@
 import pygame
-from classes import Cheese, Mouse
+from classes import Cheese, Mouse, Cell
 
 
-def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[pygame.Surface]]:
-    maze_surfaces: list[list[pygame.Surface]] = []
+def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell]]:
+    maze_cells: list[list[Cheese | Mouse | Cell]] = []
+
     with open('test_text.txt') as file:
         lines = file.readlines()
-        vertical_border_surfaces: list[pygame.Surface] = []
+        vertical_border_cells: list[Cell] = []
 
         for _ in range(len(lines)+2):
-            vertical_border_surface = pygame.Surface((50, 50))
-            vertical_border_surface.fill((10, 10, 10))
-            vertical_border_surfaces.append(vertical_border_surface)
+            vertical_border_cell = Cell("#0A0A0A")
+            vertical_border_cells.append(vertical_border_cell)
 
-        maze_surfaces.append(vertical_border_surfaces)
+        maze_cells.append(vertical_border_cells)
 
         for line in lines:
-            left_border_surface = pygame.Surface((50, 50))
-            left_border_surface.fill((10, 10, 10))
-            surfaces_aux: list[pygame.Surface] = [left_border_surface]
+            left_border_cell = Cell("#0A0A0A")
+            cells_aux: list[Cell] = [left_border_cell]
+
             for value in line:
-                maze_surface = pygame.Surface((50, 50))
                 if value == "0":
-                    maze_surface.fill((255, 255, 255))
-                    surfaces_aux.append(maze_surface)
+                    white_cell = Cell("#FFF")
+                    cells_aux.append(white_cell)
 
                 elif value == "1":
-                    maze_surface.fill((0, 0, 0))
-                    surfaces_aux.append(maze_surface)
+                    dark_cell = Cell("#000")
+                    cells_aux.append(dark_cell)
 
                 elif value == "m":
-                    surfaces_aux.append(mouse.surface)
+                    cells_aux.append(mouse)
 
                 elif value == "c":
-                    surfaces_aux.append(cheese.surface)
+                    cells_aux.append(cheese)
 
-            right_border_surface = pygame.Surface((50, 50))
-            right_border_surface.fill((10, 10, 10))
-            surfaces_aux.append(right_border_surface)
+            right_border_cell = Cell("#0A0A0A")
+            cells_aux.append(right_border_cell)
 
-            maze_surfaces.append(surfaces_aux)
+            maze_cells.append(cells_aux)
 
-        maze_surfaces.append(vertical_border_surfaces)
+        maze_cells.append(vertical_border_cells)
 
-    return maze_surfaces
+    return maze_cells
 
 
 def is_black(screen: pygame.Surface, cell: pygame.Surface) -> bool:
