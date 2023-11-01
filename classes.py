@@ -6,6 +6,8 @@ class Cell():
         self.surface = pygame.Surface((50, 50))
         self.surface.fill(color)
         self.rectangle = self.surface.get_rect()
+        self.width = self.rectangle.width
+        self.height = self.rectangle.height
 
 
 class Mouse(pygame.sprite.Sprite):

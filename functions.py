@@ -51,7 +51,7 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell
 def is_black(screen: pygame.Surface, cell: Cell) -> bool:
     black = (0, 0, 0)
 
-    if (screen.get_at((cell.get_width(), cell.get_height())) != black):
+    if (screen.get_at((cell.width, cell.height) != black)):
         return False
 
     return True

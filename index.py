@@ -31,8 +31,8 @@ while running:
     screen_y_position: float = 50
 
     for row in maze_surfaces:
-        for column in row:
-            screen.blit(column.surface, (screen_x_position, screen_y_position))
+        for cell in row:
+            screen.blit(cell.surface, (screen_x_position, screen_y_position))
             screen_x_position += 50
 
         screen_x_position = 50
