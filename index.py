@@ -37,9 +37,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen_x_position = mouse.rectangle.x
-    screen_y_position = mouse.rectangle.y
-
     pygame.display.flip()
 
     clock.tick(10)
