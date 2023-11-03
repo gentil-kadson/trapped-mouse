@@ -3,6 +3,7 @@ import pygame
 
 class Cell():
     def __init__(self, color):
+        self.color = color
         self.surface = pygame.Surface((50, 50))
         self.surface.fill(color)
         self.rectangle = self.surface.get_rect()

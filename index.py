@@ -21,8 +21,15 @@ screen.fill("#181818")
 screen_x_position: float = 0
 screen_y_position: float = 0
 
+rat_initial_x: float = 0
+rat_initial_y: float = 0
+
 for row in maze_cells:
     for cell in row:
+        if isinstance(cell, Mouse):
+            rat_initial_x = screen_x_position
+            rat_initial_y = screen_y_position
+
         screen.blit(cell.surface, (screen_x_position, screen_y_position))
         screen_x_position += 50
 
@@ -36,6 +43,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    screen.blit(mouse.surface, (rat_initial_x+50, rat_initial_y))
 
     pygame.display.flip()
 
