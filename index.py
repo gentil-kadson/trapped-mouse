@@ -1,6 +1,6 @@
 import pygame
 from classes import Mouse, Cheese, Cell
-from functions import create_maze, solve_maze
+from functions import create_maze, get_next_step
 
 pygame.init()
 
@@ -14,10 +14,10 @@ clock = pygame.time.Clock()
 running: bool = True
 mouse = Mouse()
 cheese = Cheese()
+steps: list[tuple] = []
 
 ## Creating maze cells (includes mouse and cheese starting cells) ##
 maze_cells = create_maze(mouse, cheese)
-stack: list[Cell | Mouse | Cheese] = []
 
 ## Inserting cells on pygame's main surface object ##
 screen.fill("#181818")
@@ -43,15 +43,23 @@ for row in maze_cells:
     screen_x_position = 0
     screen_y_position += 50
 
+steps.append((mouse.x, mouse.y))
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
     ## solving the maze ##
+    for row in maze_cells:
+        for cell in row:
+            data_tuple = get_next_step(mouse, cell)
+            steps.append(data_tuple)
 
     pygame.display.flip()
 
     clock.tick(10)
 
 pygame.quit()
+
+print(steps)

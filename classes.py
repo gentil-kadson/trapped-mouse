@@ -28,9 +28,8 @@ class Mouse(pygame.sprite.Sprite):
 
 
 class Cheese(pygame.sprite.Sprite):
-    def __init__(self, color, x: float = 0, y: float = 0) -> None:
+    def __init__(self, x: float = 0, y: float = 0) -> None:
         super(Cheese, self).__init__()
-        self.color = color
         self.surface = pygame.image.load("icons/cheese.png").convert()
         self.rectangle = self.surface.get_rect()
         self.width = self.rectangle.width

@@ -4,6 +4,8 @@ from classes import Cheese, Mouse, Cell
 WHITE = (255, 255, 255)
 BORDER = (10, 10, 10)
 BLACK = (0, 0, 0)
+MOUSE = (255, 193, 110)
+CHEESE = (255, 255, 0)
 
 
 def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell]]:
@@ -48,17 +50,22 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell
     return maze_cells
 
 
-def is_black(screen: pygame.Surface, cell: Cell) -> bool:
-    black = (0, 0, 0)
-
-    if (screen.get_at((cell.width, cell.height) != black)):
-        return False
-
-    return True
-
-
 def is_color_valid(cell: Cell) -> bool:
-    if cell.color != BLACK and cell.color != BORDER:
+    if cell.color != BLACK and cell.color != BORDER and cell.color != MOUSE:
         return True
 
     return False
+
+
+def get_next_step(mouse: Mouse, cell: Cell) -> tuple:
+    if mouse.x+50 == cell.x and mouse.y == cell.y and is_color_valid(cell):
+        return (cell.x, cell.y)
+
+    if mouse.x-50 == cell.x and mouse.y == cell.y and is_color_valid(cell):
+        return (cell.x, cell.y)
+
+    if mouse.y+50 == cell.y and mouse.x == cell.x and is_color_valid(cell):
+        return (cell.x, cell.y)
+
+    if mouse.y-50 == cell.y and mouse.x == cell.x and is_color_valid(cell):
+        return (cell.x, cell.y)
