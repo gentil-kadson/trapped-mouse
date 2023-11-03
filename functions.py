@@ -6,10 +6,8 @@ BORDER = (10, 10, 10)
 BLACK = (0, 0, 0)
 
 
-def create_maze() -> list[list[Cheese | Mouse | Cell]]:
+def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell]]:
     maze_cells: list[list[Cheese | Mouse | Cell]] = []
-    mouse = Mouse()
-    cheese = Cheese()
 
     with open('test_text.txt') as file:
         lines = file.readlines()
@@ -59,15 +57,8 @@ def is_black(screen: pygame.Surface, cell: Cell) -> bool:
     return True
 
 
-def get_mouse(maze: list[list[Cell | Mouse | Cheese]]):
-    for row in maze:
-        for cell in row:
-            if isinstance(cell, Mouse):
-                return cell
+def is_color_valid(cell: Cell) -> bool:
+    if cell.color != BLACK and cell.color != BORDER:
+        return True
 
-
-def get_cheese(maze: list[list[Cell | Mouse | Cheese]]):
-    for row in maze:
-        for cell in row:
-            if isinstance(cell, Cheese):
-                return cell
+    return False
