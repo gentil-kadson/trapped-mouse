@@ -1,12 +1,17 @@
 import pygame
-from classes import Mouse, Cheese, Cell
-from functions import create_maze, get_next_step
+from classes import Mouse, Cheese
+from functions import create_maze
 
 pygame.init()
 
 ## constants ##
 SCREEN_WIDTH = 1366
 SCREEN_HEIGHT = 768
+WHITE = (255, 255, 255)
+BORDER = (10, 10, 10)
+BLACK = (0, 0, 0)
+MOUSE = (255, 193, 110)
+CHEESE = (255, 255, 0)
 
 ## initial variables ##
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -14,13 +19,13 @@ clock = pygame.time.Clock()
 running: bool = True
 mouse = Mouse()
 cheese = Cheese()
-steps: list[tuple] = []
+visited: list[tuple] = []
 
 ## Creating maze cells (includes mouse and cheese starting cells) ##
 maze_cells = create_maze(mouse, cheese)
 
 ## Inserting cells on pygame's main surface object ##
-screen.fill("#181818")
+screen.fill("white")
 screen_x_position: float = 0
 screen_y_position: float = 0
 
@@ -43,17 +48,18 @@ for row in maze_cells:
     screen_x_position = 0
     screen_y_position += 50
 
-steps.append((mouse.x, mouse.y))
+# rato fantasma que vai percorrer o caminho
+ghost_mouse = Mouse(mouse.x, mouse.y)
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    ## solving the maze ##
-
     pygame.display.flip()
 
-    clock.tick(10)
+    ## solving the maze ##
+    while ghost_mouse.x != cheese.x and ghost_mouse.y != cheese.y:
+        pass
 
 pygame.quit()

@@ -50,22 +50,13 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell
     return maze_cells
 
 
-def is_color_valid(cell: Cell) -> bool:
-    if cell.color != BLACK and cell.color != BORDER and cell.color != MOUSE:
+def can_move_to(cell: Cell):
+    if cell.color == WHITE or cell.color == CHEESE:
         return True
-
     return False
 
 
-def get_next_step(mouse: Mouse, cell: Cell) -> tuple:
-    if mouse.x+50 == cell.x and mouse.y == cell.y and is_color_valid(cell):
-        return (cell.x, cell.y)
-
-    if mouse.x-50 == cell.x and mouse.y == cell.y and is_color_valid(cell):
-        return (cell.x, cell.y)
-
-    if mouse.y+50 == cell.y and mouse.x == cell.x and is_color_valid(cell):
-        return (cell.x, cell.y)
-
-    if mouse.y-50 == cell.y and mouse.x == cell.x and is_color_valid(cell):
-        return (cell.x, cell.y)
+def has_been_visited(x: float, y: float, visited: list[tuple]) -> bool:
+    if (x, y) in visited:
+        return True
+    return False
