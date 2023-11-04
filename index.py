@@ -51,15 +51,9 @@ while running:
             running = False
 
     ## solving the maze ##
-    for row in maze_cells:
-        for cell in row:
-            data_tuple = get_next_step(mouse, cell)
-            steps.append(data_tuple)
 
     pygame.display.flip()
 
     clock.tick(10)
 
 pygame.quit()
-
-print(steps)

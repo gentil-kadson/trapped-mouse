@@ -1,4 +1,3 @@
-import pygame
 from classes import Cheese, Mouse, Cell
 
 WHITE = (255, 255, 255)
@@ -40,8 +39,9 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell
                 elif value == "c":
                     cells_aux.append(cheese)
 
-            right_border_cell = Cell(BORDER)
-            cells_aux.append(right_border_cell)
+            if isinstance(cells_aux[-1], Cheese) is False:
+                right_border_cell = Cell(BORDER)
+                cells_aux.append(right_border_cell)
 
             maze_cells.append(cells_aux)
 
