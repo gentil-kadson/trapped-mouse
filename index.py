@@ -59,7 +59,6 @@ while running:
     pygame.display.flip()
 
     ## solving the maze ##
-    while ghost_mouse.x != cheese.x and ghost_mouse.y != cheese.y:
-        pass
+
 
 pygame.quit()
