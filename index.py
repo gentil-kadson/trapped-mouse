@@ -47,16 +47,13 @@ for row in maze_cells:
     screen_x_position = 0
     screen_y_position += 50
 
-# rato fantasma que vai percorrer o caminho
-ghost_mouse = Mouse(mouse.x, mouse.y)
-
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
     pygame.display.flip()
-
+    clock.tick(1)
     ## solving the maze ##
 
 

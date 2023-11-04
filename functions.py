@@ -50,7 +50,7 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell
     return maze_cells
 
 
-def can_move_to(cell: Cell):
+def can_move_to(cell: Cell) -> bool:
     return cell.color == WHITE or cell.color == CHEESE
 
 
