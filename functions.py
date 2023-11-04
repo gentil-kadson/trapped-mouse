@@ -51,12 +51,8 @@ def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell
 
 
 def can_move_to(cell: Cell):
-    if cell.color == WHITE or cell.color == CHEESE:
-        return True
-    return False
+    return cell.color == WHITE or cell.color == CHEESE
 
 
 def has_been_visited(x: float, y: float, visited: list[tuple]) -> bool:
-    if (x, y) in visited:
-        return True
-    return False
+    return (x, y) in visited

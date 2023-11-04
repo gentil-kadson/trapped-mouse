@@ -34,13 +34,12 @@ for row in maze_cells:
         if isinstance(cell, Mouse):
             mouse.x = screen_x_position
             mouse.y = screen_y_position
-
-        if isinstance(cell, Cheese):
+        elif isinstance(cell, Cheese):
             cheese.x = screen_x_position
             cheese.y = screen_y_position
-
-        cell.x = screen_x_position
-        cell.y = screen_y_position
+        else:
+            cell.x = screen_x_position
+            cell.y = screen_y_position
 
         screen.blit(cell.surface, (screen_x_position, screen_y_position))
         screen_x_position += 50
