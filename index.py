@@ -25,7 +25,7 @@ visited: list[tuple] = []
 maze_cells = create_maze(mouse, cheese)
 
 ## Inserting cells on pygame's main surface object ##
-screen.fill("white")
+screen.fill("teal")
 screen_x_position: float = 0
 screen_y_position: float = 0
 
@@ -47,14 +47,13 @@ for row in maze_cells:
     screen_x_position = 0
     screen_y_position += 50
 
+pygame.display.flip()
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    pygame.display.flip()
-    clock.tick(1)
     ## solving the maze ##
-
 
 pygame.quit()

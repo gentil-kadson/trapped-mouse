@@ -1,7 +1,7 @@
 from classes import Cheese, Mouse, Cell
 
 WHITE = (255, 255, 255)
-BORDER = (10, 10, 10)
+BORDER = (238, 75, 43)
 BLACK = (0, 0, 0)
 MOUSE = (255, 193, 110)
 CHEESE = (255, 255, 0)
