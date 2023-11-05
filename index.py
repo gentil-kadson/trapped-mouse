@@ -1,6 +1,6 @@
 import pygame
-from classes import Mouse, Cheese
-from functions import create_maze
+from classes import Mouse, Cheese, Cell
+from functions import create_maze, can_go_down, can_go_left, can_go_right, can_go_up
 
 pygame.init()
 
@@ -48,6 +48,7 @@ for row in maze_cells:
     screen_y_position += 50
 
 pygame.display.flip()
+clock.tick(2)
 
 while running:
     for event in pygame.event.get():
@@ -55,5 +56,23 @@ while running:
             running = False
 
     ## solving the maze ##
+    while mouse.x != cheese.x and mouse.y != cheese.y:
+        while can_go_right(mouse, maze_cells):
+            cell_to_blit = Cell(WHITE, mouse.x, mouse.y)
+            mouse.x += 50
+
+            screen.blit(cell_to_blit.surface, (cell_to_blit.x, cell_to_blit.y))
+            screen.blit(mouse.surface, (mouse.x, mouse.y))
+            pygame.display.flip()
+
+        while can_go_left(mouse, maze_cells):
+            cell_to_blit = Cell(WHITE, mouse.x, mouse.y)
+            mouse.x -= 50
+
+            screen.blit(cell_to_blit.surface, (cell_to_blit.x, cell_to_blit.y))
+            screen.blit(mouse.surface, (mouse.x, mouse.y))
+            pygame.display.flip()
+
+    print("POV!!!!")
 
 pygame.quit()

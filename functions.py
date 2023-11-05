@@ -56,3 +56,39 @@ def can_move_to(cell: Cell) -> bool:
 
 def has_been_visited(x: float, y: float, visited: list[tuple]) -> bool:
     return (x, y) in visited
+
+
+def can_go_right(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
+    for row in maze_cells:
+        for cell in row:
+            if (mouse.x+50 == cell.x and mouse.y == cell.y) and can_move_to(cell):
+                return True
+
+    return False
+
+
+def can_go_left(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
+    for row in maze_cells:
+        for cell in row:
+            if (mouse.x-50 == cell.x and mouse.y == cell.y) and can_move_to(cell):
+                return True
+
+    return False
+
+
+def can_go_down(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
+    for row in maze_cells:
+        for cell in row:
+            if ((mouse.x, mouse.y-50) == (cell.x, cell.y)) and can_move_to(cell):
+                return True
+
+    return False
+
+
+def can_go_up(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
+    for row in maze_cells:
+        for cell in row:
+            if ((mouse.x, mouse.y) == (cell.x, cell.y+50)) and can_move_to(cell):
+                return True
+
+    return False
