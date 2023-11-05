@@ -7,7 +7,9 @@ MOUSE = (255, 193, 110)
 CHEESE = (255, 255, 0)
 
 
-def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Cheese | Mouse | Cell]]:
+def create_maze() -> list[list[Cheese | Mouse | Cell]]:
+    mouse = Mouse()
+    cheese = Cheese()
     maze_cells: list[list[Cheese | Mouse | Cell]] = []
 
     with open('test_text.txt') as file:
@@ -59,36 +61,16 @@ def has_been_visited(x: float, y: float, visited: list[tuple]) -> bool:
 
 
 def can_go_right(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
-    for row in maze_cells:
-        for cell in row:
-            if (mouse.x+50 == cell.x and mouse.y == cell.y) and can_move_to(cell):
-                return True
-
-    return False
+    pass
 
 
 def can_go_left(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
-    for row in maze_cells:
-        for cell in row:
-            if (mouse.x-50 == cell.x and mouse.y == cell.y) and can_move_to(cell):
-                return True
-
-    return False
+    pass
 
 
 def can_go_down(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
-    for row in maze_cells:
-        for cell in row:
-            if ((mouse.x, mouse.y-50) == (cell.x, cell.y)) and can_move_to(cell):
-                return True
-
-    return False
+    pass
 
 
 def can_go_up(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
-    for row in maze_cells:
-        for cell in row:
-            if ((mouse.x, mouse.y) == (cell.x, cell.y+50)) and can_move_to(cell):
-                return True
-
-    return False
+    pass
