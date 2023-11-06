@@ -5,7 +5,7 @@ from colors import *
 class Mouse(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("./icons/jerry.png")
+        self.image = pygame.image.load("./icons/mouse.jpg")
         self.rect = self.image.get_rect()
         self.rect.center = (0, 0)
 
