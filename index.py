@@ -1,56 +1,32 @@
+from colors import *
+import sys
+from classes import Mouse
 import pygame
-from classes import Mouse, Cheese, Cell
-from functions import create_maze, can_go_down, can_go_left, can_go_right, can_go_up
+from pygame.locals import *
+from functions import create_maze
+
 
 pygame.init()
 
-## constants ##
-SCREEN_WIDTH = 1366
-SCREEN_HEIGHT = 768
-WHITE = (255, 255, 255)
-BORDER = (10, 10, 10)
-BLACK = (0, 0, 0)
-MOUSE = (255, 193, 110)
-CHEESE = (255, 255, 0)
+# initializing constants #
+DISPLAY_SURFACE = pygame.display.set_mode((800, 600))
+FPS = 10
+FRAMES_PER_SECOND = pygame.time.Clock()
 
-## initial variables ##
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-clock = pygame.time.Clock()
-running: bool = True
-visited: list[tuple] = []
+# creating maze and blitting it to display surface
 mouse = Mouse()
-cheese = Cheese()
+maze = create_maze(mouse)
 
-## Creating maze cells (includes mouse and cheese starting cells) ##
-maze_cells = create_maze()
-
-## Inserting cells on pygame's main surface object, getting mouse and cheese surfaces ##
-screen.fill("teal")
-screen_x_position: float = 0
-screen_y_position: float = 0
-
-for row in maze_cells:
-    for cell in row:
-        if isinstance(cell, Mouse):
-            mouse = cell
-
-        if isinstance(cell, Cheese):
-            cheese = cell
-
-        screen.blit(cell.surface, (screen_x_position, screen_y_position))
-        screen_x_position += 50
-
-    screen_x_position = 0
-    screen_y_position += 50
-
-pygame.display.flip()
-clock.tick(2)
-
-while running:
+while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
 
-    while mouse.position != cheese.position:
-        pass
-pygame.quit()
+    DISPLAY_SURFACE.fill(BLUE)
+    for row in maze:
+        for column in row:
+            DISPLAY_SURFACE.blit(column.image, column.rect.center)
+
+    pygame.display.update()
+    FRAMES_PER_SECOND.tick(FPS)

@@ -1,76 +1,38 @@
-from classes import Cheese, Mouse, Cell
-
-WHITE = (255, 255, 255)
-BORDER = (238, 75, 43)
-BLACK = (0, 0, 0)
-MOUSE = (255, 193, 110)
-CHEESE = (255, 255, 0)
+from classes import Mouse, Path, Wall
 
 
-def create_maze() -> list[list[Cheese | Mouse | Cell]]:
-    mouse = Mouse()
-    cheese = Cheese()
-    maze_cells: list[list[Cheese | Mouse | Cell]] = []
+def create_maze(mouse: Mouse) -> list[list[Mouse | Path | Wall]]:
+    maze: list[list[Mouse | Path | Wall]] = []
 
     with open('test_text.txt') as file:
         lines = file.readlines()
-        vertical_border_cells: list[Cell] = []
 
-        for _ in range(len(lines)+2):
-            vertical_border_cell = Cell(BORDER)
-            vertical_border_cells.append(vertical_border_cell)
+        x_axis = 0
+        y_axis = 0
 
-        maze_cells.append(vertical_border_cells)
+        for row in lines:
+            maze_columns = []
+            for column in row:
+                if column == '0':
+                    free_path = Path()
+                    free_path.set_center((x_axis, y_axis))
+                    maze_columns.append(free_path)
+                elif column == '1':
+                    wall_block = Wall()
+                    wall_block.set_center((x_axis, y_axis))
+                    maze_columns.append(wall_block)
+                elif column == 'm':
+                    mouse.set_center((x_axis, y_axis))
+                    maze_columns.append(mouse)
+                elif column == 'e':
+                    exit_cell = Path()
+                    exit_cell.set_center((x_axis, y_axis))
+                    maze_columns.append(exit_cell)
 
-        for line in lines:
-            left_border_cell = Cell(BORDER)
-            cells_aux: list[Cell] = [left_border_cell]
+                x_axis += 70
 
-            for value in line:
-                if value == "0":
-                    white_cell = Cell(WHITE)
-                    cells_aux.append(white_cell)
+            x_axis = 0
+            y_axis += 70
+            maze.append(maze_columns)
 
-                elif value == "1":
-                    dark_cell = Cell(BLACK)
-                    cells_aux.append(dark_cell)
-
-                elif value == "m":
-                    cells_aux.append(mouse)
-
-                elif value == "c":
-                    cells_aux.append(cheese)
-
-            if isinstance(cells_aux[-1], Cheese) is False:
-                right_border_cell = Cell(BORDER)
-                cells_aux.append(right_border_cell)
-
-            maze_cells.append(cells_aux)
-
-        maze_cells.append(vertical_border_cells)
-
-    return maze_cells
-
-
-def can_move_to(cell: Cell) -> bool:
-    return cell.color == WHITE or cell.color == CHEESE
-
-
-def has_been_visited(x: float, y: float, visited: list[tuple]) -> bool:
-    return (x, y) in visited
-
-
-def can_go_right(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
-    pass
-
-
-def can_go_left(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
-    pass
-
-
-def can_go_down(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
-    pass
-
-
-def can_go_up(mouse: Mouse, maze_cells: list[list[Cell | Mouse | Cheese]]) -> bool:
-    pass
+    return maze
