@@ -1,3 +1,4 @@
+from colors import FOREST_GREEN
 from classes import Mouse, Path, Wall
 
 
@@ -11,9 +12,9 @@ def create_maze(mouse: Mouse) -> list[list[Mouse | Path | Wall]]:
         y_axis = 0
 
         top_border = []
-        for _ in range(len(lines[0])):
-            print("entrei")
+        for _ in range(len(lines[0])+1):
             top_border_wall = Wall()
+            top_border_wall.image.fill(FOREST_GREEN)
             top_border_wall.set_center((x_axis, y_axis))
             top_border.append(top_border_wall)
             x_axis += 70
@@ -25,6 +26,7 @@ def create_maze(mouse: Mouse) -> list[list[Mouse | Path | Wall]]:
         for row in lines:
             maze_columns = []
             left_border_wall = Wall()
+            left_border_wall.image.fill(FOREST_GREEN)
             left_border_wall.set_center((x_axis, y_axis))
             maze_columns.append(left_border_wall)
             x_axis += 70
@@ -57,11 +59,23 @@ def create_maze(mouse: Mouse) -> list[list[Mouse | Path | Wall]]:
 
             if not skip_border_creation:
                 right_border = Wall()
+                right_border.image.fill(FOREST_GREEN)
                 right_border.set_center((x_axis, y_axis))
                 maze_columns.append(right_border)
 
             maze.append(maze_columns)
             x_axis = 0
             y_axis += 70
+
+        x_axis = 0
+        bottom_border = []
+        for _ in range(len(lines[0])+1):
+            bottom_border_wall = Wall()
+            bottom_border_wall.image.fill(FOREST_GREEN)
+            bottom_border_wall.set_center((x_axis, y_axis))
+            bottom_border.append(bottom_border_wall)
+            x_axis += 70
+
+        maze.append(bottom_border)
 
     return maze
