@@ -12,7 +12,7 @@ pygame.init()
 DISPLAY_SURFACE = pygame.display.set_mode((800, 600))
 FPS = 1
 FRAMES_PER_SECOND = pygame.time.Clock()
-pygame.display.set_caption("El ratón")
+pygame.display.set_caption("Mr. Bombastic's Game")
 
 # Instanciating mouse, cheese and maze #
 mouse = Mouse()
@@ -38,6 +38,9 @@ for row in maze:
     for column in row:
         DISPLAY_SURFACE.blit(column.image, column.rect.center)
 
+# Initializing visited stack #
+visited = []
+
 # Game loop #
 while True:
     for event in pygame.event.get():
@@ -53,6 +56,7 @@ while True:
             DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
             mouse.move_right()
             DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
+            visited.append(mouse.rect.center)
         elif can_it_move(mouse, 'left', walls_group):
             DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
             mouse.move_left()
