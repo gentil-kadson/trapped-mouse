@@ -120,3 +120,25 @@ def can_it_move(mouse: Mouse, direction: str, walls: pygame.sprite.Group) -> boo
             return True
 
     return False
+
+
+def insert_non_visited_cells(current_mouse_cell: tuple[int, int], visited: list[tuple[int, int]], neighbouring_cells: dict):
+    mouse_cell_x = current_mouse_cell[0]
+    mouse_cell_y = current_mouse_cell[1]
+
+    top = (mouse_cell_x, mouse_cell_y + 70)
+    bottom = (mouse_cell_x, mouse_cell_y - 70)
+    left = (mouse_cell_x - 70, mouse_cell_y)
+    right = (mouse_cell_x + 70, mouse_cell_y)
+
+    if right not in visited and not isinstance(right, Wall):
+        neighbouring_cells["right"] = right
+
+    if left not in visited and not isinstance(left, Wall):
+        neighbouring_cells["left"] = left
+
+    if top not in visited and not isinstance(top, Wall):
+        neighbouring_cells["top"] = top
+
+    if bottom not in visited and not isinstance(bottom, Wall):
+        neighbouring_cells["bottom"] = bottom

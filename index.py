@@ -3,7 +3,7 @@ import pygame
 import sys
 from colors import *
 from classes import Mouse, Cheese, Path
-from functions import create_maze, get_all_walls, can_it_move
+from functions import create_maze, get_all_walls, can_it_move, insert_non_visited_cells
 
 # Initiating pygame module #
 pygame.init()
@@ -38,8 +38,14 @@ for row in maze:
     for column in row:
         DISPLAY_SURFACE.blit(column.image, column.rect.center)
 
-# Initializing visited stack #
+# Initializing stacks for solving the maze #
 visited = []
+neighbouring_cells = {
+    "top": 0,
+    "right": 0,
+    "bottom": 0,
+    "left": 0
+}
 
 # Game loop #
 while True:
@@ -52,19 +58,23 @@ while True:
     FRAMES_PER_SECOND.tick(FPS)
 
     if not pygame.sprite.spritecollideany(mouse, cheese_group):
+        visited.append(mouse.rect.center)
+
         if can_it_move(mouse, 'right', walls_group):
             DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
             mouse.move_right()
             DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
-            visited.append(mouse.rect.center)
+
         elif can_it_move(mouse, 'left', walls_group):
             DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
             mouse.move_left()
             DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
+
         elif can_it_move(mouse, 'down', walls_group):
             DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
             mouse.move_down()
             DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
+
         elif can_it_move(mouse, 'up', walls_group):
             DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
             mouse.move_up()
