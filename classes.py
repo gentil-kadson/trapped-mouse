@@ -56,3 +56,18 @@ class Wall(pygame.sprite.Sprite):
 
     def set_center(self, coordinates: tuple[int, int]):
         self.rect.center = coordinates
+
+
+class Cheese(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.surface.Surface((70, 70))
+        self.image.fill(YELLOW)
+        self.rect = self.image.get_rect()
+        self.rect.center = (0, 0)
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+
+    def set_center(self, coordinates: tuple[int, int]):
+        self.rect.center = coordinates

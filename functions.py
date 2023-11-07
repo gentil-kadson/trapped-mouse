@@ -1,9 +1,9 @@
 import pygame
-from colors import FOREST_GREEN, YELLOW
-from classes import Mouse, Path, Wall
+from colors import FOREST_GREEN
+from classes import Mouse, Path, Wall, Cheese
 
 
-def create_maze(mouse: Mouse) -> list[list[Mouse | Path | Wall]]:
+def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Mouse | Path | Wall]]:
     maze: list[list[Mouse | Path | Wall]] = []
 
     with open('test_text.txt') as file:
@@ -64,8 +64,6 @@ def create_maze(mouse: Mouse) -> list[list[Mouse | Path | Wall]]:
                 right_border.set_center((x_axis, y_axis))
                 maze_columns.append(right_border)
             else:
-                cheese = Path()
-                cheese.image.fill(YELLOW)
                 cheese.set_center((x_axis, y_axis))
                 maze_columns.append(cheese)
 
@@ -97,22 +95,28 @@ def get_all_walls(maze: list[list[Mouse | Path | Wall]]):
     return walls
 
 
-def can_it_move(mouse: Mouse, direction: str, walls) -> bool:
+def can_it_move(mouse: Mouse, direction: str, walls: pygame.sprite.Group) -> bool:
     ghost_mouse = Mouse()
     ghost_mouse.set_center(mouse.rect.center)
 
     if direction == 'right':
         ghost_mouse.move_right()
-        return pygame.sprite.spritecollideany(ghost_mouse, walls)
+        if not pygame.sprite.spritecollideany(ghost_mouse, walls):
+            return True
 
     if direction == 'left':
         ghost_mouse.move_left()
-        return pygame.sprite.spritecollideany(ghost_mouse, walls)
+        if not pygame.sprite.spritecollideany(ghost_mouse, walls):
+            return True
 
     if direction == 'up':
         ghost_mouse.move_up()
-        return pygame.sprite.spritecollideany(ghost_mouse, walls)
+        if not pygame.sprite.spritecollideany(ghost_mouse, walls):
+            return True
 
     if direction == 'down':
         ghost_mouse.move_down()
-        return pygame.sprite.spritecollideany(ghost_mouse, walls)
+        if not pygame.sprite.spritecollideany(ghost_mouse, walls):
+            return True
+
+    return False
