@@ -1,4 +1,5 @@
-from colors import FOREST_GREEN
+import pygame
+from colors import FOREST_GREEN, YELLOW
 from classes import Mouse, Path, Wall
 
 
@@ -62,6 +63,11 @@ def create_maze(mouse: Mouse) -> list[list[Mouse | Path | Wall]]:
                 right_border.image.fill(FOREST_GREEN)
                 right_border.set_center((x_axis, y_axis))
                 maze_columns.append(right_border)
+            else:
+                cheese = Path()
+                cheese.image.fill(YELLOW)
+                cheese.set_center((x_axis, y_axis))
+                maze_columns.append(cheese)
 
             maze.append(maze_columns)
             x_axis = 0
@@ -89,3 +95,24 @@ def get_all_walls(maze: list[list[Mouse | Path | Wall]]):
                 walls.append(column)
 
     return walls
+
+
+def can_it_move(mouse: Mouse, direction: str, walls) -> bool:
+    ghost_mouse = Mouse()
+    ghost_mouse.set_center(mouse.rect.center)
+
+    if direction == 'right':
+        ghost_mouse.move_right()
+        return pygame.sprite.spritecollideany(ghost_mouse, walls)
+
+    if direction == 'left':
+        ghost_mouse.move_left()
+        return pygame.sprite.spritecollideany(ghost_mouse, walls)
+
+    if direction == 'up':
+        ghost_mouse.move_up()
+        return pygame.sprite.spritecollideany(ghost_mouse, walls)
+
+    if direction == 'down':
+        ghost_mouse.move_down()
+        return pygame.sprite.spritecollideany(ghost_mouse, walls)

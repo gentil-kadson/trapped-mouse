@@ -2,7 +2,7 @@ from pygame.locals import *
 import pygame
 import sys
 from colors import *
-from classes import Mouse, Path, Wall
+from classes import Mouse
 from functions import create_maze, get_all_walls
 
 
@@ -39,12 +39,3 @@ while True:
 
     pygame.display.update()
     FRAMES_PER_SECOND.tick(FPS)
-
-    old_path = Path()
-    old_path.set_center(mouse.rect.center)
-    mouse.move_right()
-    if not pygame.sprite.spritecollideany(mouse, walls_group):
-        DISPLAY_SURFACE.blit(old_path.image, old_path.rect.center)
-        DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
-    else:
-        mouse.move_left()
