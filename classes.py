@@ -15,6 +15,18 @@ class Mouse(pygame.sprite.Sprite):
     def set_center(self, coordinates: tuple[int, int]):
         self.rect.center = coordinates
 
+    def move_right(self) -> None:
+        self.rect.move_ip(70, 0)
+
+    def move_left(self) -> None:
+        self.rect.move_ip(-70, 0)
+
+    def move_up(self) -> None:
+        self.rect.move_ip(0, -7)
+
+    def move_down(self) -> None:
+        self.rect.move_ip(0, 7)
+
 
 class Path(pygame.sprite.Sprite):
     def __init__(self):

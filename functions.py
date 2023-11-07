@@ -79,3 +79,13 @@ def create_maze(mouse: Mouse) -> list[list[Mouse | Path | Wall]]:
         maze.append(bottom_border)
 
     return maze
+
+
+def get_all_walls(maze: list[list[Mouse | Path | Wall]]):
+    walls: list[Wall] = []
+    for row in maze:
+        for column in row:
+            if isinstance(column, Wall):
+                walls.append(column)
+
+    return walls
