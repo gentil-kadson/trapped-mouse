@@ -3,14 +3,14 @@ import pygame
 import sys
 from colors import *
 from classes import Mouse, Cheese, Path
-from functions import create_maze, get_all_walls, can_it_move, insert_non_visited_cells
+from functions import create_maze, get_all_walls, insert_non_visited_cells
 
 # Initiating pygame module #
 pygame.init()
 
 # Setting up display surface, window name and FPS #
-DISPLAY_SURFACE = pygame.display.set_mode((800, 600))
-FPS = 1
+DISPLAY_SURFACE = pygame.display.set_mode((1600, 900))
+FPS = 5
 FRAMES_PER_SECOND = pygame.time.Clock()
 pygame.display.set_caption("Mr. Bombastic's Game")
 
@@ -40,12 +40,7 @@ for row in maze:
 
 # Initializing stacks for solving the maze #
 visited = []
-neighbouring_cells = {
-    "top": 0,
-    "right": 0,
-    "bottom": 0,
-    "left": 0
-}
+neighbouring_cells = []
 
 # Game loop #
 while True:
@@ -60,22 +55,12 @@ while True:
     if not pygame.sprite.spritecollideany(mouse, cheese_group):
         visited.append(mouse.rect.center)
 
-        if can_it_move(mouse, 'right', walls_group):
-            DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
-            mouse.move_right()
-            DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
+        insert_non_visited_cells(
+            mouse, walls_group, neighbouring_cells, visited)
 
-        elif can_it_move(mouse, 'left', walls_group):
+        if len(neighbouring_cells) == 0:
+            visited.pop()
+        else:
             DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
-            mouse.move_left()
-            DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
-
-        elif can_it_move(mouse, 'down', walls_group):
-            DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
-            mouse.move_down()
-            DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
-
-        elif can_it_move(mouse, 'up', walls_group):
-            DISPLAY_SURFACE.blit(Path().image, mouse.rect.center)
-            mouse.move_up()
+            mouse.set_center(neighbouring_cells.pop())
             DISPLAY_SURFACE.blit(mouse.image, mouse.rect.center)
