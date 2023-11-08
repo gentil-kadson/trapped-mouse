@@ -9,9 +9,6 @@ class Mouse(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (0, 0)
 
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-
     def set_center(self, coordinates: tuple[int, int]):
         self.rect.center = coordinates
 
@@ -35,12 +32,19 @@ class Path(pygame.sprite.Sprite):
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = (0, 0)
+        self.visited = False
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
     def set_center(self, coordinates: tuple[int, int]):
         self.rect.center = coordinates
+
+    def get_visited(self):
+        return self.visited
+
+    def set_visited(self, new_visited):
+        self.visited = new_visited
 
 
 class Wall(pygame.sprite.Sprite):

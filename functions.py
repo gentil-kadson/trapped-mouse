@@ -1,5 +1,4 @@
 import pygame
-from colors import FOREST_GREEN
 from classes import Mouse, Path, Wall, Cheese
 
 
@@ -54,25 +53,25 @@ def get_all_walls(maze: list[list[Mouse | Path | Wall]]):
     return walls
 
 
-def insert_non_visited_cells(mouse: Mouse, walls: pygame.sprite.Group, neighbouring_cells: list, visited: list[tuple[int, int]]):
+def get_neighbouring_cells(mouse: Mouse, neighbouring_cells: list, walls: pygame.sprite.Group):
     ghost_mouse = Mouse()
-    ghost_mouse.set_center(mouse.rect.center)
+    ghost_mouse.rect = mouse.rect
 
     ghost_mouse.move_up()
-    if not pygame.sprite.spritecollideany(ghost_mouse, walls) and ghost_mouse.rect.center not in visited:
-        neighbouring_cells.append(ghost_mouse.rect.center)
+    if not pygame.sprite.spritecollideany(ghost_mouse, walls):
+        neighbouring_cells.append(ghost_mouse.rect)
 
+    ghost_mouse.rect = mouse.rect
     ghost_mouse.move_down()
-    ghost_mouse.move_down()
-    if not pygame.sprite.spritecollideany(ghost_mouse, walls) and ghost_mouse.rect.center not in visited:
-        neighbouring_cells.append(ghost_mouse.rect.center)
+    if not pygame.sprite.spritecollideany(ghost_mouse, walls):
+        neighbouring_cells.append(ghost_mouse.rect)
 
-    ghost_mouse.move_up()
+    ghost_mouse.rect = mouse.rect
     ghost_mouse.move_left()
-    if not pygame.sprite.spritecollideany(ghost_mouse, walls) and ghost_mouse.rect.center not in visited:
-        neighbouring_cells.append(ghost_mouse.rect.center)
+    if not pygame.sprite.spritecollideany(ghost_mouse, walls):
+        neighbouring_cells.append(ghost_mouse.rect)
 
+    ghost_mouse.rect = mouse.rect
     ghost_mouse.move_right()
-    ghost_mouse.move_right()
-    if not pygame.sprite.spritecollideany(ghost_mouse, walls) and ghost_mouse.rect.center not in visited:
-        neighbouring_cells.append(ghost_mouse.rect.center)
+    if not pygame.sprite.spritecollideany(ghost_mouse, walls):
+        neighbouring_cells.append(ghost_mouse.rect)
