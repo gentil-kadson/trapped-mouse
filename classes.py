@@ -10,7 +10,8 @@ class Mouse(pygame.sprite.Sprite):
         self.rect.center = (0, 0)
 
     def set_center(self, coordinates: tuple[int, int]):
-        self.rect.center = coordinates
+        self.rect.centerx = coordinates[0]
+        self.rect.centery = coordinates[1]
 
     def move_right(self) -> None:
         self.rect.move_ip(70, 0)

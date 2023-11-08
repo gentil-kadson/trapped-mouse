@@ -36,10 +36,10 @@ all_sprites.add(mouse)
 DISPLAY_SURFACE.fill(BLUE)
 for row in maze:
     for column in row:
-        DISPLAY_SURFACE.blit(column.image, column.rect)
+        DISPLAY_SURFACE.blit(column.image, column.rect.center)
 
 # Initializing stacks for solving the maze #
-visited = []
+visited: list[int, int] = []
 neighbouring_cells = []
 
 # Game loop #
@@ -53,15 +53,16 @@ while True:
     FRAMES_PER_SECOND.tick(FPS)
 
     if not pygame.sprite.spritecollideany(mouse, cheese_group):
-        visited.append(mouse.rect)
-        initial_neighbouring_cells_len = len(neighbouring_cells)
-        neighbouring_cells = get_neighbouring_cells(mouse, neighbouring_cells)
+        visited.append((mouse.rect.centerx, mouse.rect.centery))
 
-        if initial_neighbouring_cells_len == len(neighbouring_cells):
-            visited.pop()
+        get_neighbouring_cells(mouse, neighbouring_cells, walls_group, visited)
 
         passed_by = Path()
         passed_by.image.fill((255, 0, 0))
-        DISPLAY_SURFACE.blit(passed_by.image, mouse.rect)
+        DISPLAY_SURFACE.blit(
+            passed_by.image, (mouse.rect.centerx, mouse.rect.centery))
         future_mouse_pos_rect = neighbouring_cells.pop()
-        DISPLAY_SURFACE.blit(mouse.image, future_mouse_pos_rect)
+
+        mouse.set_center(future_mouse_pos_rect)
+        DISPLAY_SURFACE.blit(
+            mouse.image, (future_mouse_pos_rect[0], future_mouse_pos_rect[1]))

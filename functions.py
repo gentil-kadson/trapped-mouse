@@ -53,25 +53,5 @@ def get_all_walls(maze: list[list[Mouse | Path | Wall]]):
     return walls
 
 
-def get_neighbouring_cells(mouse: Mouse, neighbouring_cells: list, walls: pygame.sprite.Group):
-    ghost_mouse = Mouse()
-    ghost_mouse.rect = mouse.rect
-
-    ghost_mouse.move_up()
-    if not pygame.sprite.spritecollideany(ghost_mouse, walls):
-        neighbouring_cells.append(ghost_mouse.rect)
-
-    ghost_mouse.rect = mouse.rect
-    ghost_mouse.move_down()
-    if not pygame.sprite.spritecollideany(ghost_mouse, walls):
-        neighbouring_cells.append(ghost_mouse.rect)
-
-    ghost_mouse.rect = mouse.rect
-    ghost_mouse.move_left()
-    if not pygame.sprite.spritecollideany(ghost_mouse, walls):
-        neighbouring_cells.append(ghost_mouse.rect)
-
-    ghost_mouse.rect = mouse.rect
-    ghost_mouse.move_right()
-    if not pygame.sprite.spritecollideany(ghost_mouse, walls):
-        neighbouring_cells.append(ghost_mouse.rect)
+def get_neighbouring_cells(mouse: Mouse, neighbouring_cells: list, walls: pygame.sprite.Group, visited: list[tuple[int, int]]):
+    pass
