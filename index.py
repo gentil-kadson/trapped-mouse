@@ -10,7 +10,7 @@ pygame.init()
 
 # Setting up display surface, window name and FPS #
 DISPLAY_SURFACE = pygame.display.set_mode((1366, 768))
-FPS = 1
+FPS = 5
 FRAMES_PER_SECOND = pygame.time.Clock()
 pygame.display.set_caption("Mr. Bombastic's Game")
 
@@ -40,6 +40,7 @@ for row in maze:
 
 # Initializing stacks for solving the maze #
 visited: list[int, int] = []
+marked: list[int, int] = []
 neighbouring_cells = []
 
 # Game loop #
@@ -55,16 +56,21 @@ while True:
     if not pygame.sprite.spritecollideany(mouse, cheese_group):
         visited.append(mouse.rect.center)
 
-        get_neighbouring_cells(mouse, neighbouring_cells, walls_group, visited)
+        neighbouring_cells = []
+        get_neighbouring_cells(mouse, neighbouring_cells,
+                               walls_group, visited, marked)
 
-        if len(neighbouring_cells) == 0:
+        while len(neighbouring_cells) < 1:
+            marked.append(visited.pop())
             visited.pop()
-        else:
-            passed_by = Path()
-            passed_by.image.fill((255, 0, 0))
-            DISPLAY_SURFACE.blit(
-                passed_by.image, (mouse.rect.centerx, mouse.rect.centery))
+            get_neighbouring_cells(
+                mouse, neighbouring_cells, walls_group, visited, marked)
 
-            mouse.set_center(neighbouring_cells.pop())
-            DISPLAY_SURFACE.blit(
-                mouse.image, (mouse.rect.centerx, mouse.rect.centery))
+        passed_by = Path()
+        passed_by.image.fill((255, 0, 0))
+        DISPLAY_SURFACE.blit(
+            passed_by.image, (mouse.rect.centerx, mouse.rect.centery))
+
+        mouse.set_center(neighbouring_cells.pop())
+        DISPLAY_SURFACE.blit(
+            mouse.image, (mouse.rect.centerx, mouse.rect.centery))
