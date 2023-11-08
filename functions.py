@@ -54,4 +54,32 @@ def get_all_walls(maze: list[list[Mouse | Path | Wall]]):
 
 
 def get_neighbouring_cells(mouse: Mouse, neighbouring_cells: list, walls: pygame.sprite.Group, visited: list[tuple[int, int]]):
-    pass
+    mouse_copy = Mouse()
+    mouse_copy.set_center(mouse.rect.center)
+
+    # top #
+    mouse_copy.set_center((mouse.rect.centerx, mouse.rect.centery - 70))
+    if mouse_copy.rect.center not in visited and not pygame.sprite.spritecollideany(mouse_copy, walls):
+        neighbouring_cells.append(
+            (mouse_copy.rect.centerx, mouse_copy.rect.centery))
+
+    # bottom #
+    mouse_copy.set_center(mouse.rect.center)
+    mouse_copy.set_center((mouse.rect.centerx, mouse.rect.centery + 70))
+    if mouse_copy.rect.center not in visited and not pygame.sprite.spritecollideany(mouse_copy, walls):
+        neighbouring_cells.append(
+            (mouse_copy.rect.centerx, mouse_copy.rect.centery))
+
+    # left #
+    mouse_copy.set_center(mouse.rect.center)
+    mouse_copy.set_center((mouse.rect.centerx - 70, mouse.rect.centery))
+    if mouse_copy.rect.center not in visited and not pygame.sprite.spritecollideany(mouse_copy, walls):
+        neighbouring_cells.append(
+            (mouse_copy.rect.centerx, mouse_copy.rect.centery))
+
+    # right #
+    mouse_copy.set_center(mouse.rect.center)
+    mouse_copy.set_center((mouse.rect.centerx + 70, mouse.rect.centery))
+    if mouse_copy.rect.center not in visited and not pygame.sprite.spritecollideany(mouse_copy, walls):
+        neighbouring_cells.append(
+            (mouse_copy.rect.centerx, mouse_copy.rect.centery))

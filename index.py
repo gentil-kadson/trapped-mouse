@@ -10,7 +10,7 @@ pygame.init()
 
 # Setting up display surface, window name and FPS #
 DISPLAY_SURFACE = pygame.display.set_mode((1366, 768))
-FPS = 5
+FPS = 1
 FRAMES_PER_SECOND = pygame.time.Clock()
 pygame.display.set_caption("Mr. Bombastic's Game")
 
@@ -53,16 +53,18 @@ while True:
     FRAMES_PER_SECOND.tick(FPS)
 
     if not pygame.sprite.spritecollideany(mouse, cheese_group):
-        visited.append((mouse.rect.centerx, mouse.rect.centery))
+        visited.append(mouse.rect.center)
 
         get_neighbouring_cells(mouse, neighbouring_cells, walls_group, visited)
 
-        passed_by = Path()
-        passed_by.image.fill((255, 0, 0))
-        DISPLAY_SURFACE.blit(
-            passed_by.image, (mouse.rect.centerx, mouse.rect.centery))
-        future_mouse_pos_rect = neighbouring_cells.pop()
+        if len(neighbouring_cells) == 0:
+            visited.pop()
+        else:
+            passed_by = Path()
+            passed_by.image.fill((255, 0, 0))
+            DISPLAY_SURFACE.blit(
+                passed_by.image, (mouse.rect.centerx, mouse.rect.centery))
 
-        mouse.set_center(future_mouse_pos_rect)
-        DISPLAY_SURFACE.blit(
-            mouse.image, (future_mouse_pos_rect[0], future_mouse_pos_rect[1]))
+            mouse.set_center(neighbouring_cells.pop())
+            DISPLAY_SURFACE.blit(
+                mouse.image, (mouse.rect.centerx, mouse.rect.centery))
