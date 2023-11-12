@@ -4,9 +4,17 @@ from classes import Mouse, Path, Wall, Cheese
 
 def create_maze(mouse: Mouse, cheese: Cheese) -> list[list[Mouse | Path | Wall]]:
     maze: list[list[Mouse | Path | Wall]] = []
+    maze_dimensions = ''
 
     with open('test_text.txt') as file:
         lines = file.readlines()
+        maze_dimensions = lines[0].strip().split(" ")
+        lines = lines[1:]
+        lines = [line.strip() for line in lines]
+
+        if len(lines) != int(maze_dimensions[0]) or len(lines[0]) != int(maze_dimensions[1]):
+            print("As dimensões não coincidem com o labirinto.")
+            raise SystemExit()
 
         x_axis = 0
         y_axis = 0
