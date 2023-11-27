@@ -9,8 +9,8 @@ from functions import create_maze, get_all_walls, get_neighbouring_cells
 pygame.init()
 
 # Setting up display surface, window name and FPS #
-DISPLAY_SURFACE = pygame.display.set_mode((1366, 768))
-FPS = 5
+DISPLAY_SURFACE = pygame.display.set_mode((1920, 1080))
+FPS = 10
 FRAMES_PER_SECOND = pygame.time.Clock()
 pygame.display.set_caption("Mr. Bombastic's Game")
 
